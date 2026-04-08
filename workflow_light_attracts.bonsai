@@ -1,0 +1,406 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<WorkflowBuilder Version="2.9.0"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xmlns:cv="clr-namespace:Bonsai.Vision;assembly=Bonsai.Vision"
+                 xmlns:rx="clr-namespace:Bonsai.Reactive;assembly=Bonsai.Core"
+                 xmlns:ipy="clr-namespace:Bonsai.Scripting.IronPython;assembly=Bonsai.Scripting.IronPython"
+                 xmlns:ard="clr-namespace:Bonsai.Arduino;assembly=Bonsai.Arduino"
+                 xmlns:io="clr-namespace:Bonsai.IO;assembly=Bonsai.System"
+                 xmlns="https://bonsai-rx.org/2018/workflow">
+  <Workflow>
+    <Nodes>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="cv:FileCapture">
+          <cv:FileName>test_attracted_odorant_light\test1_larvae1.avi</cv:FileName>
+          <cv:PlaybackRate>0</cv:PlaybackRate>
+          <cv:StartPosition>0</cv:StartPosition>
+          <cv:PositionUnits>Frames</cv:PositionUnits>
+          <cv:Loop>false</cv:Loop>
+          <cv:Playing>true</cv:Playing>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="cv:CropPolygon">
+          <cv:Regions>
+            <cv:ArrayOfPoint>
+              <cv:Point>
+                <cv:X>549</cv:X>
+                <cv:Y>188</cv:Y>
+              </cv:Point>
+              <cv:Point>
+                <cv:X>550</cv:X>
+                <cv:Y>251</cv:Y>
+              </cv:Point>
+              <cv:Point>
+                <cv:X>550</cv:X>
+                <cv:Y>287</cv:Y>
+              </cv:Point>
+              <cv:Point>
+                <cv:X>538</cv:X>
+                <cv:Y>331</cv:Y>
+              </cv:Point>
+              <cv:Point>
+                <cv:X>513</cv:X>
+                <cv:Y>380</cv:Y>
+              </cv:Point>
+              <cv:Point>
+                <cv:X>477</cv:X>
+                <cv:Y>415</cv:Y>
+              </cv:Point>
+              <cv:Point>
+                <cv:X>443</cv:X>
+                <cv:Y>448</cv:Y>
+              </cv:Point>
+              <cv:Point>
+                <cv:X>412</cv:X>
+                <cv:Y>474</cv:Y>
+              </cv:Point>
+              <cv:Point>
+                <cv:X>370</cv:X>
+                <cv:Y>479</cv:Y>
+              </cv:Point>
+              <cv:Point>
+                <cv:X>325</cv:X>
+                <cv:Y>479</cv:Y>
+              </cv:Point>
+              <cv:Point>
+                <cv:X>287</cv:X>
+                <cv:Y>479</cv:Y>
+              </cv:Point>
+              <cv:Point>
+                <cv:X>239</cv:X>
+                <cv:Y>479</cv:Y>
+              </cv:Point>
+              <cv:Point>
+                <cv:X>199</cv:X>
+                <cv:Y>469</cv:Y>
+              </cv:Point>
+              <cv:Point>
+                <cv:X>170</cv:X>
+                <cv:Y>454</cv:Y>
+              </cv:Point>
+              <cv:Point>
+                <cv:X>126</cv:X>
+                <cv:Y>404</cv:Y>
+              </cv:Point>
+              <cv:Point>
+                <cv:X>105</cv:X>
+                <cv:Y>364</cv:Y>
+              </cv:Point>
+              <cv:Point>
+                <cv:X>94</cv:X>
+                <cv:Y>323</cv:Y>
+              </cv:Point>
+              <cv:Point>
+                <cv:X>77</cv:X>
+                <cv:Y>267</cv:Y>
+              </cv:Point>
+              <cv:Point>
+                <cv:X>79</cv:X>
+                <cv:Y>223</cv:Y>
+              </cv:Point>
+              <cv:Point>
+                <cv:X>84</cv:X>
+                <cv:Y>184</cv:Y>
+              </cv:Point>
+              <cv:Point>
+                <cv:X>93</cv:X>
+                <cv:Y>149</cv:Y>
+              </cv:Point>
+              <cv:Point>
+                <cv:X>101</cv:X>
+                <cv:Y>112</cv:Y>
+              </cv:Point>
+              <cv:Point>
+                <cv:X>115</cv:X>
+                <cv:Y>69</cv:Y>
+              </cv:Point>
+              <cv:Point>
+                <cv:X>162</cv:X>
+                <cv:Y>40</cv:Y>
+              </cv:Point>
+              <cv:Point>
+                <cv:X>196</cv:X>
+                <cv:Y>14</cv:Y>
+              </cv:Point>
+              <cv:Point>
+                <cv:X>228</cv:X>
+                <cv:Y>7</cv:Y>
+              </cv:Point>
+              <cv:Point>
+                <cv:X>257</cv:X>
+                <cv:Y>0</cv:Y>
+              </cv:Point>
+              <cv:Point>
+                <cv:X>293</cv:X>
+                <cv:Y>0</cv:Y>
+              </cv:Point>
+              <cv:Point>
+                <cv:X>352</cv:X>
+                <cv:Y>0</cv:Y>
+              </cv:Point>
+              <cv:Point>
+                <cv:X>385</cv:X>
+                <cv:Y>6</cv:Y>
+              </cv:Point>
+              <cv:Point>
+                <cv:X>420</cv:X>
+                <cv:Y>15</cv:Y>
+              </cv:Point>
+              <cv:Point>
+                <cv:X>448</cv:X>
+                <cv:Y>27</cv:Y>
+              </cv:Point>
+              <cv:Point>
+                <cv:X>470</cv:X>
+                <cv:Y>44</cv:Y>
+              </cv:Point>
+              <cv:Point>
+                <cv:X>494</cv:X>
+                <cv:Y>71</cv:Y>
+              </cv:Point>
+              <cv:Point>
+                <cv:X>526</cv:X>
+                <cv:Y>106</cv:Y>
+              </cv:Point>
+              <cv:Point>
+                <cv:X>545</cv:X>
+                <cv:Y>151</cv:Y>
+              </cv:Point>
+            </cv:ArrayOfPoint>
+            <cv:ArrayOfPoint>
+              <cv:Point>
+                <cv:X>128</cv:X>
+                <cv:Y>346</cv:Y>
+              </cv:Point>
+              <cv:Point>
+                <cv:X>120</cv:X>
+                <cv:Y>336</cv:Y>
+              </cv:Point>
+              <cv:Point>
+                <cv:X>122</cv:X>
+                <cv:Y>350</cv:Y>
+              </cv:Point>
+              <cv:Point>
+                <cv:X>136</cv:X>
+                <cv:Y>361</cv:Y>
+              </cv:Point>
+            </cv:ArrayOfPoint>
+          </cv:Regions>
+          <cv:MaskType>ToZero</cv:MaskType>
+          <cv:FillValue>
+            <cv:Val0>0</cv:Val0>
+            <cv:Val1>0</cv:Val1>
+            <cv:Val2>0</cv:Val2>
+            <cv:Val3>0</cv:Val3>
+          </cv:FillValue>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="cv:Grayscale" />
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="cv:Threshold">
+          <cv:ThresholdValue>80</cv:ThresholdValue>
+          <cv:MaxValue>255</cv:MaxValue>
+          <cv:ThresholdType>Binary</cv:ThresholdType>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="cv:FindContours">
+          <cv:Mode>External</cv:Mode>
+          <cv:Method>ChainApproxNone</cv:Method>
+          <cv:Offset>
+            <cv:X>0</cv:X>
+            <cv:Y>0</cv:Y>
+          </cv:Offset>
+          <cv:MinArea xsi:nil="true" />
+          <cv:MaxArea xsi:nil="true" />
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="cv:BinaryRegionAnalysis" />
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="cv:LargestBinaryRegion" />
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="cv:Centroid" />
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="rx:Skip">
+          <rx:Count>5</rx:Count>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="rx:Zip" />
+      </Expression>
+      <Expression xsi:type="ipy:PythonTransform">
+        <ipy:Name>Bearing</ipy:Name>
+        <ipy:Script>
+import math 
+import clr
+clr.AddReference("OpenCV.Net")
+from OpenCV.Net import *
+
+@returns(float)
+
+def process(value):
+
+  target_X = 420
+  target_Y = 120
+
+  current_X = value[0].X
+  current_Y = value[0].Y
+  past_X = value[1].X
+  past_Y = value[1].Y  
+  
+  if (current_X == past_X) and (current_Y == past_Y) :
+    return 180
+
+  i_worm = (current_X - past_X) / (math.sqrt((current_X - past_X)**2 + (current_Y - past_Y)**2))
+  j_worm = (current_Y - past_Y) / (math.sqrt((current_X - past_X)**2 + (current_Y - past_Y)**2))
+
+  i_target = (target_X - current_X) / (math.sqrt((target_X - current_X)**2 + (target_Y - current_Y)**2))
+  j_target = (target_Y - current_Y) / (math.sqrt((target_X - current_X)**2 + (target_Y - current_Y)**2))
+
+  bearing = math.degrees(math.acos(i_worm*i_target + j_worm*j_target))
+
+  return bearing
+</ipy:Script>
+      </Expression>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="ipy:PythonTransform">
+          <ipy:Name>TransformBearing - off at 180 deg (attractive mutant</ipy:Name>
+          <ipy:Description>transforms the bearing into light intensity value</ipy:Description>
+          <ipy:Script>@returns(int)
+def process(value):
+  
+  # protect against NaN value I was getting for int conversion of value
+
+  if value != value : return 255
+  
+  bearing = int(value) # convert the floating point bearing to an integer
+
+  if bearing &lt; 0:
+    bearing = bearing * -1
+
+  max_intensity = 0
+  min_intensity = 255
+  
+  b = 90 # bearing of x where light intensity is lowest (yields highest value for intensity)
+  
+  intensity = (255/(b)) * (bearing)
+
+  intensity = min_intensity if bearing&gt;=b else intensity
+
+  intensity = max_intensity if bearing&lt;=0 else intensity
+  
+  return int(intensity)</ipy:Script>
+        </Builder>
+      </Expression>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="Combinator">
+          <Combinator xsi:type="ard:AnalogOutput">
+            <ard:PortName>COM3</ard:PortName>
+            <ard:Pin>9</ard:Pin>
+          </Combinator>
+        </Builder>
+      </Expression>
+      <Expression xsi:type="ipy:PythonTransform">
+        <ipy:Name>Distance</ipy:Name>
+        <ipy:Script>import clr
+
+clr.AddReference("OpenCV.Net")
+
+from OpenCV.Net import *
+
+
+
+
+@returns(float)
+def process(value):
+
+  import math
+
+  target = 420, 120
+  cur_x = value.X
+  cur_y = value.Y
+
+  x_dist = abs(target[0] - cur_x)
+  y_dist = abs(target[1] - cur_y)
+  
+  distance = math.sqrt( math.pow(x_dist,2) + math.pow(y_dist,2) )
+  return distance
+
+</ipy:Script>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="rx:Zip" />
+      </Expression>
+      <Expression xsi:type="io:CsvWriter">
+        <io:FileName>datafixed.csv</io:FileName>
+        <io:Delimiter>,</io:Delimiter>
+        <io:Append>false</io:Append>
+        <io:Overwrite>false</io:Overwrite>
+        <io:Suffix>FileCount</io:Suffix>
+        <io:IncludeHeader>true</io:IncludeHeader>
+        <io:Selector />
+      </Expression>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="Combinator">
+          <Combinator xsi:type="cv:CameraCapture">
+            <cv:Index>0</cv:Index>
+            <cv:CaptureProperties />
+          </Combinator>
+        </Builder>
+      </Expression>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="Combinator">
+          <Combinator xsi:type="rx:SampleInterval">
+            <rx:Interval>PT0.2S</rx:Interval>
+          </Combinator>
+        </Builder>
+      </Expression>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="Combinator">
+          <Combinator xsi:type="cv:VideoWriter">
+            <cv:FileName>test_attracted_odorant_light/test.avi</cv:FileName>
+            <cv:Suffix>FileCount</cv:Suffix>
+            <cv:Buffered>true</cv:Buffered>
+            <cv:Overwrite>false</cv:Overwrite>
+            <cv:FourCC>FMP4</cv:FourCC>
+            <cv:FrameRate>30</cv:FrameRate>
+            <cv:FrameSize>
+              <cv:Width>0</cv:Width>
+              <cv:Height>0</cv:Height>
+            </cv:FrameSize>
+            <cv:ResizeInterpolation>NearestNeighbor</cv:ResizeInterpolation>
+          </Combinator>
+        </Builder>
+      </Expression>
+    </Nodes>
+    <Edges>
+      <Edge From="0" To="1" Label="Source1" />
+      <Edge From="1" To="2" Label="Source1" />
+      <Edge From="2" To="3" Label="Source1" />
+      <Edge From="3" To="4" Label="Source1" />
+      <Edge From="4" To="5" Label="Source1" />
+      <Edge From="5" To="6" Label="Source1" />
+      <Edge From="6" To="7" Label="Source1" />
+      <Edge From="7" To="8" Label="Source1" />
+      <Edge From="7" To="9" Label="Source2" />
+      <Edge From="7" To="13" Label="Source1" />
+      <Edge From="7" To="14" Label="Source2" />
+      <Edge From="8" To="9" Label="Source1" />
+      <Edge From="9" To="10" Label="Source1" />
+      <Edge From="10" To="11" Label="Source1" />
+      <Edge From="10" To="14" Label="Source1" />
+      <Edge From="11" To="12" Label="Source1" />
+      <Edge From="13" To="14" Label="Source3" />
+      <Edge From="14" To="15" Label="Source1" />
+      <Edge From="16" To="17" Label="Source1" />
+      <Edge From="17" To="18" Label="Source1" />
+    </Edges>
+  </Workflow>
+</WorkflowBuilder>

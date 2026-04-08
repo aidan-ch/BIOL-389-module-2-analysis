@@ -1,0 +1,383 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<WorkflowBuilder Version="2.6.3"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xmlns:cv="clr-namespace:Bonsai.Vision;assembly=Bonsai.Vision"
+                 xmlns:rx="clr-namespace:Bonsai.Reactive;assembly=Bonsai.Core"
+                 xmlns:scr="clr-namespace:Bonsai.Scripting;assembly=Bonsai.Scripting"
+                 xmlns:io="clr-namespace:Bonsai.IO;assembly=Bonsai.System"
+                 xmlns="https://bonsai-rx.org/2018/workflow">
+  <Workflow>
+    <Nodes>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="cv:FileCapture">
+          <cv:FileName>single larva example.avi</cv:FileName>
+          <cv:PlaybackRate>0</cv:PlaybackRate>
+          <cv:StartPosition>0</cv:StartPosition>
+          <cv:PositionUnits>Frames</cv:PositionUnits>
+          <cv:Loop>true</cv:Loop>
+          <cv:Playing>true</cv:Playing>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="cv:CropPolygon">
+          <cv:Regions>
+            <cv:ArrayOfPoint>
+              <cv:Point>
+                <cv:X>619</cv:X>
+                <cv:Y>274</cv:Y>
+              </cv:Point>
+              <cv:Point>
+                <cv:X>615</cv:X>
+                <cv:Y>316</cv:Y>
+              </cv:Point>
+              <cv:Point>
+                <cv:X>604</cv:X>
+                <cv:Y>356</cv:Y>
+              </cv:Point>
+              <cv:Point>
+                <cv:X>587</cv:X>
+                <cv:Y>393</cv:Y>
+              </cv:Point>
+              <cv:Point>
+                <cv:X>562</cv:X>
+                <cv:Y>427</cv:Y>
+              </cv:Point>
+              <cv:Point>
+                <cv:X>532</cv:X>
+                <cv:Y>456</cv:Y>
+              </cv:Point>
+              <cv:Point>
+                <cv:X>498</cv:X>
+                <cv:Y>480</cv:Y>
+              </cv:Point>
+              <cv:Point>
+                <cv:X>459</cv:X>
+                <cv:Y>498</cv:Y>
+              </cv:Point>
+              <cv:Point>
+                <cv:X>419</cv:X>
+                <cv:Y>508</cv:Y>
+              </cv:Point>
+              <cv:Point>
+                <cv:X>377</cv:X>
+                <cv:Y>512</cv:Y>
+              </cv:Point>
+              <cv:Point>
+                <cv:X>334</cv:X>
+                <cv:Y>508</cv:Y>
+              </cv:Point>
+              <cv:Point>
+                <cv:X>294</cv:X>
+                <cv:Y>498</cv:Y>
+              </cv:Point>
+              <cv:Point>
+                <cv:X>255</cv:X>
+                <cv:Y>480</cv:Y>
+              </cv:Point>
+              <cv:Point>
+                <cv:X>221</cv:X>
+                <cv:Y>456</cv:Y>
+              </cv:Point>
+              <cv:Point>
+                <cv:X>191</cv:X>
+                <cv:Y>427</cv:Y>
+              </cv:Point>
+              <cv:Point>
+                <cv:X>166</cv:X>
+                <cv:Y>393</cv:Y>
+              </cv:Point>
+              <cv:Point>
+                <cv:X>149</cv:X>
+                <cv:Y>356</cv:Y>
+              </cv:Point>
+              <cv:Point>
+                <cv:X>138</cv:X>
+                <cv:Y>316</cv:Y>
+              </cv:Point>
+              <cv:Point>
+                <cv:X>134</cv:X>
+                <cv:Y>275</cv:Y>
+              </cv:Point>
+              <cv:Point>
+                <cv:X>138</cv:X>
+                <cv:Y>233</cv:Y>
+              </cv:Point>
+              <cv:Point>
+                <cv:X>149</cv:X>
+                <cv:Y>193</cv:Y>
+              </cv:Point>
+              <cv:Point>
+                <cv:X>166</cv:X>
+                <cv:Y>156</cv:Y>
+              </cv:Point>
+              <cv:Point>
+                <cv:X>191</cv:X>
+                <cv:Y>122</cv:Y>
+              </cv:Point>
+              <cv:Point>
+                <cv:X>221</cv:X>
+                <cv:Y>93</cv:Y>
+              </cv:Point>
+              <cv:Point>
+                <cv:X>255</cv:X>
+                <cv:Y>69</cv:Y>
+              </cv:Point>
+              <cv:Point>
+                <cv:X>294</cv:X>
+                <cv:Y>51</cv:Y>
+              </cv:Point>
+              <cv:Point>
+                <cv:X>334</cv:X>
+                <cv:Y>41</cv:Y>
+              </cv:Point>
+              <cv:Point>
+                <cv:X>376</cv:X>
+                <cv:Y>37</cv:Y>
+              </cv:Point>
+              <cv:Point>
+                <cv:X>419</cv:X>
+                <cv:Y>41</cv:Y>
+              </cv:Point>
+              <cv:Point>
+                <cv:X>459</cv:X>
+                <cv:Y>51</cv:Y>
+              </cv:Point>
+              <cv:Point>
+                <cv:X>498</cv:X>
+                <cv:Y>69</cv:Y>
+              </cv:Point>
+              <cv:Point>
+                <cv:X>532</cv:X>
+                <cv:Y>93</cv:Y>
+              </cv:Point>
+              <cv:Point>
+                <cv:X>562</cv:X>
+                <cv:Y>122</cv:Y>
+              </cv:Point>
+              <cv:Point>
+                <cv:X>587</cv:X>
+                <cv:Y>156</cv:Y>
+              </cv:Point>
+              <cv:Point>
+                <cv:X>604</cv:X>
+                <cv:Y>193</cv:Y>
+              </cv:Point>
+              <cv:Point>
+                <cv:X>615</cv:X>
+                <cv:Y>233</cv:Y>
+              </cv:Point>
+            </cv:ArrayOfPoint>
+          </cv:Regions>
+          <cv:MaskType>ToZero</cv:MaskType>
+          <cv:FillValue>
+            <cv:Val0>0</cv:Val0>
+            <cv:Val1>0</cv:Val1>
+            <cv:Val2>0</cv:Val2>
+            <cv:Val3>0</cv:Val3>
+          </cv:FillValue>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="cv:Grayscale" />
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="cv:Threshold">
+          <cv:ThresholdValue>30</cv:ThresholdValue>
+          <cv:MaxValue>255</cv:MaxValue>
+          <cv:ThresholdType>Binary</cv:ThresholdType>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="cv:FindContours">
+          <cv:Mode>External</cv:Mode>
+          <cv:Method>ChainApproxNone</cv:Method>
+          <cv:Offset>
+            <cv:X>0</cv:X>
+            <cv:Y>0</cv:Y>
+          </cv:Offset>
+          <cv:MinArea xsi:nil="true" />
+          <cv:MaxArea xsi:nil="true" />
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="cv:BinaryRegionAnalysis" />
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="cv:LargestBinaryRegion" />
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="cv:Centroid" />
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="rx:Skip">
+          <rx:Count>5</rx:Count>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="cv:GoodFeaturesToTrack">
+          <cv:MaxFeatures>2</cv:MaxFeatures>
+          <cv:QualityLevel>0.01</cv:QualityLevel>
+          <cv:MinDistance>10</cv:MinDistance>
+          <cv:RegionOfInterest>
+            <cv:X>0</cv:X>
+            <cv:Y>0</cv:Y>
+            <cv:Width>0</cv:Width>
+            <cv:Height>0</cv:Height>
+          </cv:RegionOfInterest>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="Index">
+        <Operand xsi:type="IntProperty">
+          <Value>0</Value>
+        </Operand>
+      </Expression>
+      <Expression xsi:type="Index">
+        <Operand xsi:type="IntProperty">
+          <Value>1</Value>
+        </Operand>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="rx:Zip" />
+      </Expression>
+      <Expression xsi:type="scr:PythonTransform">
+        <scr:Name>Main python</scr:Name>
+        <scr:Script>import math 
+
+@returns(tuple)
+
+def distance(w,x,y,z):
+  d = math.sqrt(math.pow((y - w),2) + math.pow((z - x),2))
+  return d
+
+def process(value): 
+
+  target_x = 390
+  target_y = 500
+  
+  old_ctr_x = value[2].X
+  old_ctr_y = value[2].Y
+  ctr_x = value[3].X
+  ctr_y = value[3].Y
+  
+# These are the 2 ends of the maggot (GoodFeaturesToTrack output)
+  a_x = value[0].X
+  a_y = value[0].Y
+  b_x = value[1].X
+  b_y = value[1].Y
+
+# Whichever end of the maggot is further away from the old centroid is the head, the other is the tail  
+  if distance(a_x, a_y, old_ctr_x, old_ctr_y) &gt; distance(b_x, b_y, old_ctr_x, old_ctr_y):
+    head_x = a_x
+    head_y = a_y
+    tail_x = b_x
+    tail_y = b_y
+  else: 
+    head_x = b_x
+    head_y = b_y
+    tail_x = a_x
+    tail_y = a_y
+
+# Calculates the bearing, which is angle between the centroid movement vector and the centroid to target vector
+  ctr_target_i = (target_x - ctr_x) / distance(target_x, target_y, ctr_x, ctr_y)
+  ctr_target_j = (target_y - ctr_y) / distance(target_x, target_y, ctr_x, ctr_y)
+  ctr_move_i = (ctr_x - old_ctr_x) / distance(old_ctr_x, old_ctr_y, ctr_x, ctr_y)
+  ctr_move_j = (ctr_y - old_ctr_y) / distance(old_ctr_x, old_ctr_y, ctr_x, ctr_y)
+
+  bearing = math.degrees(math.acos(ctr_target_i * ctr_move_i + ctr_target_j * ctr_move_j))
+
+ 
+# Calculates the angle between a vector from the centroid to the head and a vector from the centroid to the tail  
+  head_i = (head_x - ctr_x) / distance(head_x, head_y, ctr_x, ctr_y)
+  head_j = (head_y - ctr_y) / distance(head_x, head_y, ctr_x, ctr_y)
+
+  tail_i = (tail_x - ctr_x) / distance(tail_x, tail_y, ctr_x, ctr_y)
+  tail_j = (tail_y - ctr_y) / distance(tail_x, tail_y, ctr_x, ctr_y)
+
+  body_angle = math.degrees(math.acos(head_i * tail_i + head_j * tail_j))
+
+# If the body angle is below a threshold it's treated as a head cast
+  if body_angle &lt; 155:
+
+    tail_ctr_i = (ctr_x - tail_x) / distance(tail_x, tail_y, ctr_x, ctr_y)
+    tail_ctr_j = (ctr_y - tail_y) / distance(tail_x, tail_y, ctr_x, ctr_y)
+    
+    anterior_bearing = math.degrees(math.acos(head_i * ctr_target_i + head_j * ctr_target_j))
+    posterior_bearing = math.degrees(math.acos(tail_ctr_i * ctr_target_i + tail_ctr_j * ctr_target_j))
+
+    if anterior_bearing &lt; posterior_bearing:
+      arduino_out = 0
+    else:
+      arduino_out = 255
+  
+  else:
+    arduino_out = 255
+
+  return body_angle, arduino_out, bearing</scr:Script>
+      </Expression>
+      <Expression xsi:type="scr:PythonTransform">
+        <scr:Name>Body angle</scr:Name>
+        <scr:Script>@returns(float)
+
+def process(value):
+  return value[0]</scr:Script>
+      </Expression>
+      <Expression xsi:type="scr:PythonTransform">
+        <scr:Name>Trigger LED</scr:Name>
+        <scr:Script>@returns(int)
+
+def process(value):
+  return value[1]</scr:Script>
+      </Expression>
+      <Expression xsi:type="scr:PythonTransform">
+        <scr:Name>bearing</scr:Name>
+        <scr:Script>@returns(float)
+
+def process(value):
+  return value[2]</scr:Script>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="rx:Zip" />
+      </Expression>
+      <Expression xsi:type="io:CsvWriter">
+        <io:FileName>bumi.csv</io:FileName>
+        <io:Append>false</io:Append>
+        <io:Overwrite>true</io:Overwrite>
+        <io:Suffix>None</io:Suffix>
+        <io:IncludeHeader>false</io:IncludeHeader>
+      </Expression>
+      <Expression xsi:type="io:CsvWriter">
+        <io:FileName>test.csv</io:FileName>
+        <io:Append>false</io:Append>
+        <io:Overwrite>true</io:Overwrite>
+        <io:Suffix>None</io:Suffix>
+        <io:IncludeHeader>false</io:IncludeHeader>
+      </Expression>
+    </Nodes>
+    <Edges>
+      <Edge From="0" To="1" Label="Source1" />
+      <Edge From="1" To="2" Label="Source1" />
+      <Edge From="2" To="3" Label="Source1" />
+      <Edge From="2" To="9" Label="Source1" />
+      <Edge From="3" To="4" Label="Source1" />
+      <Edge From="4" To="5" Label="Source1" />
+      <Edge From="5" To="6" Label="Source1" />
+      <Edge From="6" To="7" Label="Source1" />
+      <Edge From="7" To="8" Label="Source1" />
+      <Edge From="7" To="12" Label="Source3" />
+      <Edge From="8" To="12" Label="Source4" />
+      <Edge From="9" To="10" Label="Source1" />
+      <Edge From="9" To="11" Label="Source1" />
+      <Edge From="10" To="12" Label="Source1" />
+      <Edge From="11" To="12" Label="Source2" />
+      <Edge From="12" To="13" Label="Source1" />
+      <Edge From="12" To="19" Label="Source1" />
+      <Edge From="13" To="14" Label="Source1" />
+      <Edge From="13" To="15" Label="Source1" />
+      <Edge From="13" To="16" Label="Source1" />
+      <Edge From="14" To="17" Label="Source2" />
+      <Edge From="15" To="17" Label="Source1" />
+      <Edge From="16" To="17" Label="Source3" />
+      <Edge From="17" To="18" Label="Source1" />
+    </Edges>
+  </Workflow>
+</WorkflowBuilder>
