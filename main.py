@@ -1,3 +1,5 @@
+import math
+
 import matplotlib.pyplot as plt
 from scipy.stats import linregress
 import numpy as np
@@ -167,11 +169,13 @@ def trajectory_plot(trial):
     plt.ylabel("Y position")
     plt.title("Larval Trajectory - Trial {}".format(trial_number))
 
+    # mark the target
+    plt.scatter(target_x, target_y, marker='x', s=100, label="Target (420, 120)")
+
     plt.legend()
     plt.axis("equal")  # keeps scale consistent
 
-    # mark the target
-    plt.scatter(target_x, target_y, marker='x', s=100, label="Target")
+
 
     plt.savefig(fname="Plots/Trajectories/Trajectory_{}".format(trial_number))
     plt.show()
@@ -587,97 +591,30 @@ def generate_lin_regression_distance(trial):
     fig.show()
     plt.close(fig)
 
-# return a dataframe where only non-overlapping windows of window_size frames are kept if the bearing is within some threshold
-    # If non overlapping window has bearing change over the threshold take the middle frame and mark it as a turn
-# if first and last frames have bearing difference within the threshold but first and some frame in middle is
-    # not within the threshold, then it isnt a run and it isnt a turn
+# returns tuple x,y,distance,frame of frame when closest
+def get_closest_point(trial):
+    df = trial.df
+    frame_closest = df["Distance"].idxmin()
+    x_closest = df["X"].iloc[frame_closest]
+    y_closest = df["Y"].iloc[frame_closest]
+    distance_closest = df["Distance"].iloc[frame_closest]
 
-def get_clean_runs_df(trial):
-    bearing_threshold = 30
-    window_size = 10
+    return x_closest, y_closest, distance_closest, frame_closest
 
-    df = trial.df.copy()
+def print_closest_point_data(trial):
+    x_closest, y_closest, distance_closest, frame_closest = get_closest_point(trial)
+    time_closest = frame_closest * 0.2
+    trial_num = trial.trial_num
+    delta_x = x_closest - trial.df["X"].iloc[0]
+    delta_y = y_closest - trial.df["Y"].iloc[0]
 
-    # Smooth bearing first
-    df["Bearing_smooth"] = (
-        df["Bearing"]
-        .rolling(window=5, center=True, min_periods=1)
-        .mean()
-    )
-
-    num_frames = df.shape[0]
-    cur_frame = 0
-
-    run_rows = []
-    turns = []
-
-    while cur_frame + window_size <= num_frames:
-        window_start = cur_frame
-        window_end = window_start + window_size
-        window_frames = df.iloc[window_start:window_end]
-
-        bearing_range = (
-                window_frames["Bearing_smooth"].max()
-                - window_frames["Bearing_smooth"].min()
-        )
-
-        if bearing_range <= bearing_threshold:
-            run_rows.append(window_frames)
-            cur_frame += 1
-        else:
-            turn_idx = window_start + window_size // 2
-            turns.append(turn_idx)
-            cur_frame = window_end
-
-    if run_rows:
-        run_df = pd.concat(run_rows)
-        run_df = run_df[~run_df.index.duplicated(keep="first")]
-    else:
-        run_df = pd.DataFrame(columns=df.columns)
-
-    if turns:
-        deduped_turns = [turns[0]]
-        min_separation = window_size // 2
-
-        for t in turns[1:]:
-            if t - deduped_turns[-1] >= min_separation:
-                deduped_turns.append(t)
-
-        turns = deduped_turns
-
-    return run_df, turns
-
-def trajectory_plot_with_turns(trial, list_turns):
-    x_arr = np.array(trial.df["X"], dtype=np.float32)
-    y_arr = np.array(trial.df["Y"], dtype=np.float32)
-    trial_number = trial.trial_num
-    plt.figure()
-
-    plt.plot(x_arr, y_arr, marker='o', markersize=1, c="black")  # path
-
-    # Mark start point (green)
-    plt.scatter(x_arr[0], y_arr[0], label="Start", c="green")
-
-    # plot turns
-    plt.scatter(x_arr[list_turns], y_arr[list_turns], label="turns", c="orange")
-
-    # Mark end point (red)
-    plt.scatter(x_arr[-1], y_arr[-1], label="End", c="orange")
-
-    plt.xlabel("X position")
-    plt.ylabel("Y position")
-    plt.title("Larval Trajectory - Trial {}".format(trial_number))
-
-    plt.legend()
-    plt.axis("equal")  # keeps scale consistent
-
-    # mark the target
-    plt.scatter(target_x, target_y, marker='x', s=100, label="Target")
-
-    plt.savefig(fname="Plots/Trajectories/Trajectory_{}".format(trial_number))
-    plt.show()
-    plt.close()
-
+    distance_traveled = math.sqrt(delta_x**2 + delta_y**2)
+    print("CLOSEST POINT DATA - TRIAL {}".format(trial_num))
+    print("\tX = {}".format(x_closest))
+    print("\tY = {}".format(y_closest))
+    print("\tTime = {}".format(time_closest))
+    print("\tDisplacement form start = {}".format(distance_traveled))
+    print("\tDistance from target = {}".format(distance_closest))
 def main():
     initialize_directories()
 
@@ -705,11 +642,9 @@ def main():
     generate_lin_regression_distance(trial_1)
     generate_lin_regression_distance(trial_2)
 
-    run_df_1, turns_1 = get_clean_runs_df(trial_1)
-    run_df_2, turns_2 = get_clean_runs_df(trial_2)
 
-    trajectory_plot_with_turns(trial_1, turns_1)
-    trajectory_plot_with_turns(trial_2, turns_2)
+    print_closest_point_data(trial_1)
+    print_closest_point_data(trial_2)
 
 if __name__ == '__main__':
     main()
