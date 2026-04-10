@@ -41,8 +41,8 @@ def initialize_directories():
     if not os.path.isdir("Plots/Velocity plots"):
         os.makedirs("Plots/Velocity plots")
 
-    if not os.path.isdir("Plots/Linear Regression plots"):
-        os.makedirs("Plots/Linear Regression plots")
+    if not os.path.isdir("Plots/Distance plots"):
+        os.makedirs("Plots/Distance plots")
 
     if not os.path.isdir("Extracted Data"):
         os.makedirs("Extracted Data")
@@ -54,21 +54,27 @@ def initialize_directories():
         os.makedirs("Extracted Data/Velocity Data")
 
 
-# segment is a string argument, "whole", "early", "late"
-# early --> before min(distance)
-# late --> after min(distance)
-def create_bearing_histogram(
+
+def create_smoothed_bearing_histogram(
         trial, subplot, segment, is_density: bool,
         my_color="blue"):
+    smoothing_window = 5
+
     if segment == "whole":
-        arr_bearing = trial.df["Bearing"]
+        arr_bearing = trial.df["Bearing"].rolling(window=smoothing_window,
+                                                  min_periods=1,
+                                                  center=True).mean()
     else:
         frame_closest = trial.df["Distance"].idxmin()
 
         if segment == "early":
-            arr_bearing = trial.df.iloc[:frame_closest]["Bearing"]
+            arr_bearing = trial.df.iloc[:frame_closest]["Bearing"].rolling(window=smoothing_window,
+                                                                           min_periods=1,
+                                                                           center=True).mean()
         elif segment == "late":
-            arr_bearing = trial.df.iloc[frame_closest + 1:]["Bearing"]
+            arr_bearing = trial.df.iloc[frame_closest + 1:]["Bearing"].rolling(window=smoothing_window,
+                                                                               min_periods=1,
+                                                                               center=True).mean()
         # segment is not a valid string
         else:
             raise ValueError("Invalid segment argument provided ("
@@ -170,15 +176,13 @@ def trajectory_plot(trial):
     plt.title("Larval Trajectory - Trial {}".format(trial_number))
 
     # mark the target
-    plt.scatter(target_x, target_y, marker='x', s=100, label="Target (420, 120)")
+    plt.scatter(target_x, target_y, marker='x', s=100,
+                label="Target (420, 120)")
 
     plt.legend()
     plt.axis("equal")  # keeps scale consistent
 
-
-
     plt.savefig(fname="Plots/Trajectories/Trajectory_{}".format(trial_number))
-    plt.show()
     plt.close()
 
 
@@ -257,7 +261,7 @@ def velocity_plot(trial):
     # show the label of vertical line when closest to target
     ax.legend()
     plt.savefig("Plots/Velocity plots/Velocity - Trial {}".format(trial_num))
-    plt.show()
+    plt.close()
 
     return velocity_arr, time_arr
 
@@ -273,7 +277,7 @@ def save_velocity_data(v_arr, t_arr, file_name):
         index=False)
 
 
-def generate_bearing_histograms(trial_1, trial_2):
+def generate_smooth_bearing_histograms(trial_1, trial_2):
     # we are saving the data from each histogram separately in "trial".hist_data attribute but saving images in groups of 3 histograms
 
     # 1x3 array of plots (trial 1 and 2 overlayed for each) --> [ Whole trial, Until min distance, after min distance ]
@@ -323,7 +327,7 @@ def generate_bearing_histograms(trial_1, trial_2):
     )
 
     # WHOLE TRIAL
-    counts, edges = create_bearing_histogram(
+    counts, edges = create_smoothed_bearing_histogram(
         trial_1,
         ax_frequency[0],
         "whole",
@@ -336,7 +340,7 @@ def generate_bearing_histograms(trial_1, trial_2):
     trial_1.hist_data["Counts/Densities"].append(counts)
     trial_1.hist_data["Edges"].append(edges)
 
-    counts, edges = create_bearing_histogram(
+    counts, edges = create_smoothed_bearing_histogram(
         trial_2,
         ax_frequency[0],
         "whole",
@@ -350,7 +354,7 @@ def generate_bearing_histograms(trial_1, trial_2):
     trial_2.hist_data["Edges"].append(edges)
 
     # UNTIL MIN
-    counts, edges = create_bearing_histogram(
+    counts, edges = create_smoothed_bearing_histogram(
         trial_1,
         ax_frequency[1],
         "early",
@@ -364,7 +368,7 @@ def generate_bearing_histograms(trial_1, trial_2):
     trial_1.hist_data["Counts/Densities"].append(counts)
     trial_1.hist_data["Edges"].append(edges)
 
-    counts, edges = create_bearing_histogram(
+    counts, edges = create_smoothed_bearing_histogram(
         trial_2,
         ax_frequency[1],
         "early",
@@ -379,7 +383,7 @@ def generate_bearing_histograms(trial_1, trial_2):
     trial_2.hist_data["Edges"].append(edges)
 
     # AFTER MIN
-    counts, edges = create_bearing_histogram(
+    counts, edges = create_smoothed_bearing_histogram(
         trial_1,
         ax_frequency[2],
         "late",
@@ -392,7 +396,7 @@ def generate_bearing_histograms(trial_1, trial_2):
     trial_1.hist_data["Counts/Densities"].append(counts)
     trial_1.hist_data["Edges"].append(edges)
 
-    counts, edges = create_bearing_histogram(
+    counts, edges = create_smoothed_bearing_histogram(
         trial_2,
         ax_frequency[2],
         "late",
@@ -415,7 +419,7 @@ def generate_bearing_histograms(trial_1, trial_2):
     # DENSITY HISTOGRAMS
 
     # WHOLE TRIAL
-    counts, edges = create_bearing_histogram(
+    counts, edges = create_smoothed_bearing_histogram(
         trial_1,
         ax_density[0],
         "whole",
@@ -428,7 +432,7 @@ def generate_bearing_histograms(trial_1, trial_2):
     trial_1.hist_data["Counts/Densities"].append(counts)
     trial_1.hist_data["Edges"].append(edges)
 
-    counts, edges = create_bearing_histogram(
+    counts, edges = create_smoothed_bearing_histogram(
         trial_2,
         ax_density[0],
         "whole",
@@ -442,7 +446,7 @@ def generate_bearing_histograms(trial_1, trial_2):
     trial_2.hist_data["Edges"].append(edges)
 
     # UNTIL MIN
-    counts, edges = create_bearing_histogram(
+    counts, edges = create_smoothed_bearing_histogram(
         trial_1,
         ax_density[1],
         "early",
@@ -456,7 +460,7 @@ def generate_bearing_histograms(trial_1, trial_2):
     trial_1.hist_data["Counts/Densities"].append(counts)
     trial_1.hist_data["Edges"].append(edges)
 
-    counts, edges = create_bearing_histogram(
+    counts, edges = create_smoothed_bearing_histogram(
         trial_2,
         ax_density[1],
         "early",
@@ -471,7 +475,7 @@ def generate_bearing_histograms(trial_1, trial_2):
     trial_2.hist_data["Edges"].append(edges)
 
     # AFTER MIN
-    counts, edges = create_bearing_histogram(
+    counts, edges = create_smoothed_bearing_histogram(
         trial_1,
         ax_density[2],
         "late",
@@ -484,7 +488,7 @@ def generate_bearing_histograms(trial_1, trial_2):
     trial_1.hist_data["Counts/Densities"].append(counts)
     trial_1.hist_data["Edges"].append(edges)
 
-    counts, edges = create_bearing_histogram(
+    counts, edges = create_smoothed_bearing_histogram(
         trial_2,
         ax_density[2],
         "late",
@@ -504,19 +508,18 @@ def generate_bearing_histograms(trial_1, trial_2):
     fig_density.show()
     plt.close(fig_density)
 
+def format_distance_subplot(subplot, x_label, y_label):
+    subplot.set_xlabel(x_label)
+    subplot.set_ylabel(y_label)
 
-# CAN SUM DENSITY OF HISTOGRAM FROM 0 TO 90 DEGREES TO COUNT NUMBER OF FRAMES WHERE IS MOVING TOWARDS THE TARGET
-# COMPARE FOR BEFORE MIN DISTANCE AND AFTER MIN DISTANCE TO SHOW THE REACTION
-
-# MAYBE DO MOVING AVERAGE OF BEARING??
-# SMOOTH IT OUT OVER A WINDOW TO GET RID OF FLUCTUATIONS
+    subplot.tick_params(axis="x", labelrotation=45)
 
 
-# LOOK AT THE DISTANCE EVERY 5 SECONDS TO SMOOTH IT OUT (downsampling)
-# segment = "whole" (entire trial), = "early" (until min(distance)), = "late" (after min(distance))
-def distance_lin_regression(trial, segment):
+    return subplot
+
+def distance_plot_best_fit(trial, segment, subplot):
     if segment == "whole":
-        # grab every 5th frame --> sampling distance every 5 seconds
+        # grab every 5th frame --> sampling distance every 1 second
         distance_array = trial.df.iloc[::5]["Distance"]
 
     else:
@@ -531,62 +534,49 @@ def distance_lin_regression(trial, segment):
             raise ValueError("Invalid segment argument provided ("
                              "expected whole, early, or late)")
 
-    # gives us the total time in seconds as we stepped every 5 frames
     total_time = distance_array.shape[0]
-    time_array = np.arange(0, total_time, 1)
+    time_array = np.arange(0, distance_array.shape[0], 1)
 
-    return time_array, distance_array, linregress(time_array, distance_array)
+    a,b = np.polyfit(time_array,distance_array,  1)
 
-
-def plot_lin_regression(trial, subplot, time_array, distance_array,
-                        reg_result):
-    subplot.plot(time_array, distance_array, alpha=0.5)
-    subplot.plot(time_array,
-                 reg_result.intercept + reg_result.slope * time_array,
-                 label=f"Fit, $R^2$={reg_result.rvalue ** 2:.2f}",
-                 alpha=0.5)
-
+    subplot.plot(time_array, distance_array,  c="red", alpha = 0.5)
+    subplot.plot(time_array, a*time_array + b, c="blue", alpha = 0.5, label = "Best fit (slope={:.3f})".format(a))
+    subplot.set(xticks = np.arange(0, time_array.shape[0], 60))
     subplot.set(
-        xlabel="Time (s)",
-        ylabel="Distance to target",
+        ylim = [0, distance_array.max()]
     )
 
+def generate_distance_best_fits(trial):
+    df= trial.df.copy()
 
-def generate_lin_regression_distance(trial):
-    fig, ax = plt.subplots(1, 3, layout="constrained")
+
+    fig, ax = plt.subplots(1, 3, figsize=(10, 5), layout="constrained")
     fig.suptitle(
         "Distance to Target over time - Trial {}".format(trial.trial_num),
         fontweight='bold',
         fontsize=figure_title_fontsize)
 
-    time_array, distance_array, result = distance_lin_regression(
-        trial,
-        "whole"
-    )
-    plot_lin_regression(trial, ax[0], time_array, distance_array, result)
-
-    time_array, distance_array, result = distance_lin_regression(
-        trial,
-        "early"
-    )
-    plot_lin_regression(trial, ax[1], time_array, distance_array, result)
-
-    time_array, distance_array, result = distance_lin_regression(
-        trial,
-        "late"
-    )
-    plot_lin_regression(trial, ax[2], time_array, distance_array, result)
+    distance_plot_best_fit(trial, "whole", ax[0])
+    distance_plot_best_fit(trial, "early", ax[1])
+    distance_plot_best_fit(trial, "late", ax[2])
 
     ax[0].set_title("Whole Trial")
     ax[1].set_title("Until min(distance)")
     ax[2].set_title("After min(distance)")
 
+    format_distance_subplot(ax[0], "Time (s)", "Distance (pixels)")
+    format_distance_subplot(ax[1], "Time (s)", "Distance (pixels)")
+    format_distance_subplot(ax[2], "Time (s)", "Distance (pixels)")
+
     # ax[0].legend()
     add_subplot_legend(ax[0])
     add_subplot_legend(ax[1])
     add_subplot_legend(ax[2])
+    ax[0].legend(fontsize = 10)
+    ax[1].legend(fontsize = 10)
+    ax[2].legend(fontsize = 10)
 
-    fig.savefig("Plots/Linear Regression Plots/Distance - Trial {}".format(
+    fig.savefig("Plots/Distance Plots/Distance - Trial {}".format(
         trial.trial_num))
     fig.show()
     plt.close(fig)
@@ -601,20 +591,23 @@ def get_closest_point(trial):
 
     return x_closest, y_closest, distance_closest, frame_closest
 
+
 def print_closest_point_data(trial):
-    x_closest, y_closest, distance_closest, frame_closest = get_closest_point(trial)
+    x_closest, y_closest, distance_closest, frame_closest = get_closest_point(
+        trial)
     time_closest = frame_closest * 0.2
     trial_num = trial.trial_num
     delta_x = x_closest - trial.df["X"].iloc[0]
     delta_y = y_closest - trial.df["Y"].iloc[0]
 
-    distance_traveled = math.sqrt(delta_x**2 + delta_y**2)
+    distance_traveled = math.sqrt(delta_x ** 2 + delta_y ** 2)
     print("CLOSEST POINT DATA - TRIAL {}".format(trial_num))
     print("\tX = {}".format(x_closest))
     print("\tY = {}".format(y_closest))
     print("\tTime = {}".format(time_closest))
     print("\tDisplacement form start = {}".format(distance_traveled))
     print("\tDistance from target = {}".format(distance_closest))
+
 def main():
     initialize_directories()
 
@@ -624,7 +617,8 @@ def main():
     trajectory_plot(trial_1)
     trajectory_plot(trial_2)
 
-    generate_bearing_histograms(trial_1, trial_2)
+    #generate_bearing_histograms(trial_1, trial_2)
+    generate_smooth_bearing_histograms(trial_1, trial_2)
     # data is GATHERED IN generate_bearing_histograms and we save it to a csv by calling save_histogram_data
     save_histogram_data(trial_1)
     save_histogram_data(trial_2)
@@ -639,12 +633,13 @@ def main():
     save_velocity_data(v_arr_2, t_arr_2,
                        "Velocity data (normalzied) - trial 2")
 
-    generate_lin_regression_distance(trial_1)
-    generate_lin_regression_distance(trial_2)
-
-
     print_closest_point_data(trial_1)
     print_closest_point_data(trial_2)
+
+
+
+    generate_distance_best_fits(trial_1)
+    generate_distance_best_fits(trial_2)
 
 if __name__ == '__main__':
     main()
